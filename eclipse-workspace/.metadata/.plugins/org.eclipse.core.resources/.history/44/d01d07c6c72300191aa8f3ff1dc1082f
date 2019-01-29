@@ -1,0 +1,5 @@
+package it.keybiz.formazione.todo.repository;
+
+public interface ToDoRepository {
+
+}

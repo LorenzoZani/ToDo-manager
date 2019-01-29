@@ -1,0 +1,58 @@
+package it.keybiz.formazione.todo.it.controller;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import it.keybiz.formazione.todo.model.ToDo;
+import it.keybiz.formazione.todo.repository.ToDoRepository;
+
+@RestController
+@RequestMapping("/todo")
+public class ToDoController {
+	
+	@Autowired
+	ToDoRepository toDoRepository;
+	
+	
+	@GetMapping("")
+	public List<ToDo> getAll(){
+		return toDoRepository.findAll();
+	}
+	
+	@GetMapping("/{id}}")
+	public ResponseEntity<ToDo> get(@PathVariable long id){
+		Optional<ToDo> todo= toDoRepository.findById(id);
+		if(todo.isPresent()) {
+			return new ResponseEntity<ToDo>(todo.get(), HttpStatus.OK);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@PostMapping("")
+	public ResponseEntity<Object> create(@RequestBody ToDo todo) {
+		todo.setDone(false);
+		ToDo savedToDo = toDoRepository.save(todo);
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(savedToDo.getId())
+				.toUri();
+		return ResponseEntity.created(location).build();
+	}
+	
+	
+
+}

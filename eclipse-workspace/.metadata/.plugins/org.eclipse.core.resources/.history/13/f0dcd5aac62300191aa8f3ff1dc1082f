@@ -1,0 +1,5 @@
+package it.keybiz.formazione.todo.dto;
+
+public class ToDoCheckDTO {
+
+}

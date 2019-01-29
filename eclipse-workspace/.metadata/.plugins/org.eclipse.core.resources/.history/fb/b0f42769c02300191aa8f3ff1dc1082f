@@ -1,0 +1,14 @@
+package it.keybiz.formazione.todo.it.keybiz.formazione.todo.model;
+
+import javax.persistence.Entity;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class ToDo {
+	private long id;
+	private String description;
+	private boolean done;
+
+}
