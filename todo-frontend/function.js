@@ -1,11 +1,26 @@
 //TODO ARRAY
-const todos = [];
+let todos = [];
+
+//JSON HANDLING
+
+function getTodos() {
+  return fetch("http://localhost:8080/todo").then(response => response.json());
+}
+
+function addToDos(data) {
+  todos = data;
+  render();
+}
+
+function main() {
+  getTodos().then(addToDos);
+}
 
 //CREATING TODO&&TODOLIST
 function createToDo(text) {
-  const newTodo = { checked: false, text };
+  const newTodo = { done: false, text };
   todos.push(newTodo);
-  main();
+  render();
 }
 
 function createToDoAppDiv(todos) {
@@ -32,7 +47,7 @@ function createTodoElement(todo, index) {
   const li = document.createElement("li");
   li.appendChild(createToDoCheckBox(todo));
   li.appendChild(document.createTextNode(todo.text));
-  if (todo.checked) {
+  if (todo.done) {
     li.appendChild(createToDoDeleteBtn(index));
   }
   return li;
@@ -72,7 +87,8 @@ function createToDoDeleteBtn(index) {
 
 function createToDoCheckBox(todo) {
   const checkBox = document.createElement("input");
-  checkBox.type = "checkBox";
+  checkBox.type = "checkbox";
+  checkBox.checked = todo.done;
   checkBox.style.margin = "10px";
   checkBox.addEventListener("click", () => {
     checkTodo(todo);
@@ -82,17 +98,17 @@ function createToDoCheckBox(todo) {
 
 //FUNCTIONS
 function checkTodo(todo) {
-  todo.checked = !todo.checked;
-  main();
+  todo.done = !todo.done;
+  render();
 }
 
 function deleteToDo(index) {
   todos.splice(index, 1);
-  main();
+  render();
 }
 
 //PAGE CREATION
-function main() {
+function render() {
   document.body.innerHTML = "";
   document.body.appendChild(createToDoAppDiv(todos));
 }

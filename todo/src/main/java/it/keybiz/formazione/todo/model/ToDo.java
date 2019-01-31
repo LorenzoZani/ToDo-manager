@@ -13,7 +13,7 @@ public class ToDo {
 	@Id
 	@GeneratedValue
 	private long id;
-	private String description;
+	private String text;
 	private boolean done;
 	
 	
@@ -26,11 +26,11 @@ public class ToDo {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getDescription() {
-		return description;
+	public String getText() {
+		return text;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setText(String text) {
+		this.text = text;
 	}
 	public boolean isDone() {
 		return done;
