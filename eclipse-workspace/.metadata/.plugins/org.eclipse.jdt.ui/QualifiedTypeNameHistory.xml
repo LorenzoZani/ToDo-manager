@@ -2,13 +2,9 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="it.keybiz.formazione.todo.TodoApplication"/>
 <fullyQualifiedTypeName name="lombok.Data"/>
-<fullyQualifiedTypeName name="javax.persistence.Entity"/>
-<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
-<fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="it.keybiz.formazione.todo.repository.ToDoRepository"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="it.keybiz.formazione.todo.model.ToDo"/>
@@ -26,4 +22,12 @@
 <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
 <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
+<fullyQualifiedTypeName name="javax.persistence.Id"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.support.JpaRepositoryFactory"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="it.keybiz.formazione.todo.repository.UserToDoRepository"/>
+<fullyQualifiedTypeName name="it.keybiz.formazione.todo.model.UserToDo"/>
 </qualifiedTypeNameHistroy>

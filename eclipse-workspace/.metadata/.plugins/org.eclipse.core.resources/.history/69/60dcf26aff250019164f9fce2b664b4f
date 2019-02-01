@@ -1,0 +1,43 @@
+package it.keybiz.formazione.todo.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
+@Entity
+public class UtenteToDo {
+	
+	@Id
+	@GeneratedValue
+	
+	private long id;
+	private String firtName;
+	private String surname;
+	
+	
+	
+	
+	//GETTER&&SETTER
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getFirtName() {
+		return firtName;
+	}
+	public void setFirtName(String firtName) {
+		this.firtName = firtName;
+	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	
+	
+	
+
+}

@@ -15,6 +15,7 @@ public class ToDo {
 	private long id;
 	private String text;
 	private boolean done;
+	private long userId;
 	
 	
 	//ENTITY DOESN'T NEED CONSTRUCTOR
@@ -38,6 +39,13 @@ public class ToDo {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	
 	
 
 }

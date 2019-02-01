@@ -1,15 +1,17 @@
 //TODO ARRAY
 let todos = [];
 //JSON HANDLING
-function getTodos() {
-  return fetch("http://localhost:8080/todo").then(response => response.json());
+function getTodos(userId) {
+  return fetch("http://localhost:8080/todo/userId/" + userId).then(response =>
+    response.json()
+  );
 }
 function addToDos(data) {
   todos = data;
   render();
 }
 function main() {
-  getTodos().then(addToDos);
+  getUser().then(addUsers);
 }
 //POSTING TODO IN DB
 function addToDoDB(text) {
@@ -52,6 +54,7 @@ function createToDo(todo) {
 function createToDoAppDiv(todos) {
   const div = document.createElement("div");
   const toDoInputElement = createToDoTextInput();
+  div.appendChild(selectUser());
   div.appendChild(toDoInputElement);
   div.appendChild(createToDoAddBtn(toDoInputElement));
   div.appendChild(createToDoList(todos));
@@ -144,3 +147,41 @@ function render() {
   document.body.appendChild(createToDoAppDiv(todos));
 }
 main();
+
+//USERS
+let users = [];
+let userId;
+function selectUser() {
+  const selectUser = document.createElement("select");
+  users.forEach(user => {
+    let option = document.createElement("option");
+    option.value = user.id;
+    option.appendChild(
+      document.createTextNode(user.firstName + " " + user.surname)
+    );
+    selectUser.appendChild(option);
+  });
+  selectUser.value = userId;
+  selectUser.addEventListener("change", () => {
+    userId = selectUser.value;
+    loadToDo();
+  });
+
+  return selectUser;
+}
+
+//USERFETCHING
+function getUser() {
+  return fetch("http://localhost:8080/users").then(response => response.json());
+}
+function addUsers(data) {
+  users = data;
+  render();
+}
+
+function loadToDo() {
+  getTodos(userId).then(addToDos);
+}
+//SHOWING TODO BY USERID
+
+render();

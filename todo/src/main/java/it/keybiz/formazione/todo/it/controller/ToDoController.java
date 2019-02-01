@@ -45,6 +45,10 @@ public class ToDoController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	@GetMapping("/userId/{userId}")
+	public List<ToDo>findByUserId(@PathVariable long userId) {
+		return toDoRepository.findByUserId(userId);
+	}
 	
 	@PostMapping("")
 	public ResponseEntity<ToDo> create(@RequestBody ToDo todo) {
