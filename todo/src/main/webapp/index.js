@@ -55,9 +55,11 @@ function createToDoAppDiv(todos, users) {
   const div = document.createElement("div");
   const toDoInputElement = createToDoTextInput();
   div.appendChild(selectUser(users));
-  div.appendChild(toDoInputElement);
-  div.appendChild(createToDoAddBtn(toDoInputElement));
-  div.appendChild(createToDoList(todos));
+  if (userId) {
+    div.appendChild(toDoInputElement);
+    div.appendChild(createToDoAddBtn(toDoInputElement));
+    div.appendChild(createToDoList(todos));
+  }
   div.className = "container";
   return div;
 }
