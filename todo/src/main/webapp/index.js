@@ -2,7 +2,7 @@
 let todos = [];
 //JSON HANDLING
 function getTodos(userId) {
-  return fetch("http://localhost:8080/todo/userId/" + userId).then(response =>
+  return fetch("http://localhost:8080/todo/" + userId).then(response =>
     response.json()
   );
 }
@@ -15,7 +15,7 @@ function main() {
 }
 //POSTING TODO IN DB
 function addToDoDB(text) {
-  return fetch("http://localhost:8080/todo", {
+  return fetch("http://localhost:8080/todo/" + userId, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -26,7 +26,7 @@ function addToDoDB(text) {
 }
 //UPDATING TODO IN DB
 function updateToDODB(todo) {
-  fetch("http://localhost:8080/todo/" + todo.id + "/done", {
+  fetch("http://localhost:8080/todo/" + userId + "/" + todo.id + "/done", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -37,7 +37,7 @@ function updateToDODB(todo) {
 }
 //DELETING FROM DB
 function deleteToDoFromDB(todo) {
-  fetch("http://localhost:8080/todo/" + todo.id, {
+  fetch("http://localhost:8080/todo/" + userId + "/" + todo.id, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -51,10 +51,10 @@ function createToDo(todo) {
   todos.push(todo);
   render();
 }
-function createToDoAppDiv(todos) {
+function createToDoAppDiv(todos, users) {
   const div = document.createElement("div");
   const toDoInputElement = createToDoTextInput();
-  div.appendChild(selectUser());
+  div.appendChild(selectUser(users));
   div.appendChild(toDoInputElement);
   div.appendChild(createToDoAddBtn(toDoInputElement));
   div.appendChild(createToDoList(todos));
@@ -84,11 +84,10 @@ function createToDoTextInput() {
   //TEXT
   const inputText = document.createElement("input");
   inputText.type = "text";
-  inputText.size = 50;
   inputText.className = "inputText";
   inputText.addEventListener("keypress", function handleKeyPress(e) {
     var key = e.keyCode || e.which;
-    if (inputText.value != "") {
+    if (inputText.value != "" && userId != null) {
       if (key == 13) {
         addToDoDB(inputText.value).then(createToDo);
       }
@@ -96,13 +95,15 @@ function createToDoTextInput() {
   });
   return inputText;
 }
+
+let buttonCheck = true;
 function createToDoAddBtn(toDoInputElement) {
   //BUTTON TO ADD NEW TODO
   const btn = document.createElement("input");
   btn.type = "button";
   btn.value = "ADD";
-  btn.style.margin = "10px";
   btn.className = "addBtn";
+  btn.disabled = buttonCheck;
   btn.addEventListener("click", () => {
     if (toDoInputElement.value != "") {
       addToDoDB(toDoInputElement.value).then(createToDo);
@@ -144,30 +145,35 @@ function deleteToDo(index) {
 //PAGE CREATION
 function render() {
   document.body.innerHTML = "";
-  document.body.appendChild(createToDoAppDiv(todos));
+  document.body.appendChild(createToDoAppDiv(todos, users));
 }
 main();
 
 //USERS
 let users = [];
 let userId;
-function selectUser() {
+function selectUser(users) {
   const selectUser = document.createElement("select");
   users.forEach(user => {
-    let option = document.createElement("option");
-    option.value = user.id;
-    option.appendChild(
-      document.createTextNode(user.firstName + " " + user.surname)
-    );
-    selectUser.appendChild(option);
+    selectUser.appendChild(createUserTodoOption(user));
   });
   selectUser.value = userId;
+  selectUser.className = "selectUser";
   selectUser.addEventListener("change", () => {
     userId = selectUser.value;
+    buttonCheck = false;
     loadToDo();
   });
 
   return selectUser;
+}
+function createUserTodoOption(user) {
+  const option = document.createElement("option");
+  option.value = user.id;
+  option.appendChild(
+    document.createTextNode(user.firstName + " " + user.surname)
+  );
+  return option;
 }
 
 //USERFETCHING

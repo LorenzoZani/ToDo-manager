@@ -24,15 +24,20 @@ import it.keybiz.formazione.todo.model.ToDo;
 import it.keybiz.formazione.todo.repository.ToDoRepository;
 
 @RestController
-@RequestMapping("/todo/{userId}")
+@RequestMapping("/todo")
 public class ToDoController {
 	
 	@Autowired
 	ToDoRepository toDoRepository;
 	
 	
+	@GetMapping("")
+	public List<ToDo> getAll(){
+		return toDoRepository.findAll();
+	}
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<ToDo> get(@PathVariable long id,@PathVariable long userId){
+	public ResponseEntity<ToDo> get(@PathVariable long id){
 		Optional<ToDo> todo= toDoRepository.findById(id);
 		if(todo.isPresent()) {
 			return new ResponseEntity<ToDo>(todo.get(), HttpStatus.OK);
@@ -40,21 +45,20 @@ public class ToDoController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	@GetMapping("")
+	@GetMapping("/userId/{userId}")
 	public List<ToDo>findByUserId(@PathVariable long userId) {
 		return toDoRepository.findByUserId(userId);
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<ToDo> create(@RequestBody ToDo todo,@PathVariable long userId) {
+	public ResponseEntity<ToDo> create(@RequestBody ToDo todo) {
 		todo.setDone(false);
-		todo.setUserId(userId);
 		ToDo savedToDo = toDoRepository.save(todo);
 		return new ResponseEntity(savedToDo, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ToDo> delete(@PathVariable long id,@PathVariable long userId) {
+	public ResponseEntity<ToDo> delete(@PathVariable long id) {
 		Optional<ToDo> todoOptional= toDoRepository.findById(id);
 		if(todoOptional.isPresent()) {
 			ToDo todo=todoOptional.get();
@@ -71,7 +75,7 @@ public class ToDoController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PutMapping("/{id}/done")
-	public ResponseEntity<ToDo> update(@PathVariable long id, @RequestBody ToDoCheckDTO action,@PathVariable long userId) {
+	public ResponseEntity<ToDo> update(@PathVariable long id, @RequestBody ToDoCheckDTO action) {
 		Optional<ToDo> todoOptional= toDoRepository.findById(id);
 		if(todoOptional.isPresent()) {
 			ToDo todo=todoOptional.get();

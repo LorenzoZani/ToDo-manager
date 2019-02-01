@@ -1,33 +1,39 @@
 @charset "ISO-8859-1";
 body {
-  background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%);
+  background: rgb(99, 71, 31);
+  background: linear-gradient(
+    90deg,
+    rgba(99, 71, 31, 1) 0%,
+    rgba(145, 105, 53, 1) 35%,
+    rgba(206, 143, 66, 0.8242647400757178) 100%
+  );
 }
 
-/* .addBtn {
+.addBtn {
   height: 40px;
   width: 15%;
   background-color: white;
-  border-color: #c0c0c0;
+  border-color: #884422;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   border-radius: 12px;
   font-size: 20px;
 }
 .addBtn:hover {
-  background-color: #c0c0c0;
+  background-color: #884422;
   color: white;
-} */
-.deleteBtn {
+}
+george .deleteBtn {
   margin: 10px;
   background-color: white;
-  border-color: #5e5e5e;
+  border-color: #554433;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   border-radius: 12px;
   font-size: 20px;
 }
 .deleteBtn:hover {
-  background-color: #5e5e5e;
+  background-color: #884422;
   color: white;
 }
 
@@ -36,9 +42,9 @@ body {
   padding-left: 10px;
   height: 38px;
   width: 70%;
-  font-size: 30px;
+  font-size: 24px;
   border-radius: 12px;
-  border-color: #c0c0c0;
+  border-color: #556666;
   font-size: 15px;
 }
 .todoElem {
@@ -51,17 +57,4 @@ body {
   margin: 10px;
   height: 20px;
   width: 20px;
-}
-
-.selectUser {
-  display: block;
-  margin: 10px;
-  height: 38px;
-  width: 70%;
-  border-radius: 12px;
-  border: 1px solid #aaaaaa;
-  border-color: #c0c0c0;
-  font-size: 20px;
-  font-style: italic;
-  font-family: "verdana";
 }
